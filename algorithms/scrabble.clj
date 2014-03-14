@@ -1,6 +1,6 @@
 
 ;;Define list A-Z
-(def a-zlist (map #(str (char %)) (range 65 90)))
+(def a-zlist (map #(str (char %)) (range 65 68)))
 
 ;;Define file location
 (def dict-file "/Users/madhu/src/hackerschool/friday/algorithms/dictionary.txt")
@@ -17,10 +17,12 @@
 (defn words-with-char
   "Returns filtered set of words where given character appears"
   [char-val]
-  {char-val (set (filter #(char-appears? char-val %) dictionary))})
+  (set (filter #(char-appears? char-val %) dictionary)))
 
-(def single-char-indeces (first(map #(words-with-char %) a-zlist)))
+(def single-char-indeces
+  "Defines indices on A-Z for words that have the given character"
+  (apply assoc {} (interleave a-zlist (map #(words-with-char %) a-zlist))))
 
 (words-with-char "A")
 single-char-indeces
-(get single-char-indeces "A")
+(get single-char-indeces "B")
